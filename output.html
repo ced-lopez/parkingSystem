@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-image: url('img/background.jpg'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            text-align: left; 
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        p {
+            margin: 5px 0;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: rgba(0, 102, 204, 0.9); 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; 
+        }
+        button:hover {
+            opacity: 0.8; 
+        }
+        button:active {
+            opacity: 0.5;
+        }
+        .exit-button {
+            background-color: rgba(204, 0, 0, 0.9); 
+        }
+        .exit-button:hover {
+            background-color: rgba(255, 0, 0, 0.792);
+            opacity: 0.8; 
+        }
+        .exit-button:active{
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Submitted Information</h2>
+        <div id="output"></div>
+        <button onclick="goBack()">Register Another Vehicle</button>
+        <button class="exit-button" onclick="exit()">Exit</button>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const username = params.get('username') || 'N/A';
+            const plateNumber = params.get('plateNumber') || 'N/A';
+            const vehicleType = params.get('vehicleType') || 'N/A';
+            const color = params.get('color') || 'N/A';
+            const brand = params.get('brand') === 'other' 
+                ? (params.get('otherBrand') || 'N/A') 
+                : (params.get('brand') || 'N/A');
+            const model = params.get('model') || 'N/A';
+
+            return { username, plateNumber, vehicleType, color, brand, model };
+        }
+
+        function displayOutput() {
+            const { username, plateNumber, vehicleType, color, brand, model } = getQueryParams();
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = `
+                <p><strong>Username:</strong> ${username}</p>
+                <p><strong>Plate Number:</strong> ${plateNumber}</p>
+                <p><strong>Vehicle Type:</strong> ${vehicleType}</p>
+                <p><strong>Color:</strong> ${color}</p>
+                <p><strong>Brand:</strong> ${brand}</p>
+                <p><strong>Model:</strong> ${model}</p>
+            `;
+        }
+
+        function goBack() {
+            window.location.href = 'selectWheels.html'; 
+        }
+
+        function exit() {
+            window.close();
+        }
+
+        document.addEventListener('DOMContentLoaded', displayOutput);
+    </script>
+</body>
+</html>
